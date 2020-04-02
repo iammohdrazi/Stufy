@@ -23,12 +23,12 @@ import com.example.petinfo.ui.assignment.AssignmentFragment;
 import com.example.petinfo.ui.students.StudentsFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private ImageView ivMenu;
     private LinearLayout llContainer;
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer = findViewById(R.id.drawer_layout);
         ivMenu= findViewById(R.id.ivMenu);
         llContainer= findViewById(R.id.llContainer);
+        navigationView= findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         ivMenu.setOnClickListener(this);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.llContainer, new StudentsFragment())
+                .commit();
     }
 
     @Override
@@ -49,6 +55,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_students:
+                drawer.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.llContainer, new StudentsFragment())
+                        .commit();
+                break;
+            case R.id.nav_assignment:
+                drawer.closeDrawer(Gravity.LEFT);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.llContainer, new AssignmentFragment())
+                        .commit();
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main_drawer, menu);
         return true;
@@ -56,18 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_students:
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.llContainer, new StudentsFragment())
-                        .commit();
-                break;
-            case R.id.nav_assignment:
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.llContainer, new AssignmentFragment())
-                        .commit();
-                break;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

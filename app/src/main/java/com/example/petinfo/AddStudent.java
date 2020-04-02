@@ -44,8 +44,8 @@ public class AddStudent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_student);
 
-        getSupportActionBar().setTitle("Enter Student Details");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle("Enter Student Details");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         myDb = new DatabaseHelperClass(this); // dataBase constructor is calling here
 
