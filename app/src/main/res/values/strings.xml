@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pet Info</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+</resources>
